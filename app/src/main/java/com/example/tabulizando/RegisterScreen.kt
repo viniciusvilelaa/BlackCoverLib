@@ -1,5 +1,6 @@
 package com.example.tabulizando
 
+import android.content.Context
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -31,7 +32,7 @@ import androidx.navigation.NavController
 
 
 @Composable
-fun RegisterScreen(navController: NavController){
+fun RegisterScreen(navController: NavController, context: Context){
 
     var title by remember {
         mutableStateOf("")
@@ -91,7 +92,7 @@ fun RegisterScreen(navController: NavController){
         Spacer(modifier = Modifier.height(20.dp))
 
         Row {
-            Button(onClick = {  }, colors = ButtonDefaults.buttonColors(Color.Red)) {
+            Button(onClick = { saveBook(context, navController, title, author, publisher, isbn.toInt(), imgUrl) }, colors = ButtonDefaults.buttonColors(Color.Red)) {
                 Text(text = "Salvar",
                     fontSize = 15.sp)
             }
@@ -107,8 +108,10 @@ fun RegisterScreen(navController: NavController){
     }
 }
 
-fun saveBook(title: String, author: String, publisher: String, isbn: Int, url: String){
-
+fun saveBook(context: Context, navController: NavController, title: String, author: String, publisher: String, isbn: Int, url: String){
+    val db = DataBase(context)
+    db.saveBook(isbn, title, author, publisher, url)
+    backScreen(navController)
 }
 
 

@@ -34,7 +34,7 @@ class MainActivity : ComponentActivity() {
                         MenuScreen(navController)
                     }
                     composable("RegisterScreen"){
-                        RegisterScreen(navController)
+                        RegisterScreen(navController, this@MainActivity)
                     }
                 }
             }
