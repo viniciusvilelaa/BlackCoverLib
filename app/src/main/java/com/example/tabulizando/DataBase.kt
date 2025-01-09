@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.Arrangement
 class DataBaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     companion object {
         private const val DATABASE_NAME = "books.db"
-        private const val DATABASE_VERSION = 2
+        private const val DATABASE_VERSION = 3
         const val TABLE_NAME = "books"
         const val COLUMN_TITLE = "title"
         const val COLUMN_AUTHOR = "author"
