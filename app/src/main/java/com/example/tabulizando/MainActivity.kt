@@ -40,7 +40,7 @@ class MainActivity : ComponentActivity() {
                         RegisterScreen(navController, this@MainActivity)
                     }
                     composable("ListScreen"){
-                        ListScreen(dbHelper)
+                        ListScreen(dbHelper, navController)
                     }
                 }
             }
