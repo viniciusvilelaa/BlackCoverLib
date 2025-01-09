@@ -1,6 +1,8 @@
 [versions]
+accompanistGlide = "0.31.5-beta"
 agp = "8.7.3"
 appcompat = "1.7.0"
+compiler = "4.15.1"
 compose = "1.0.0-beta01"
 constraintlayout = "2.2.0"
 gson = "2.11.0"
@@ -17,13 +19,16 @@ navigationCompose = "2.8.4"
 roomRuntime = "2.6.1"
 
 [libraries]
+accompanist-glide = { module = "com.google.accompanist:accompanist-glide", version.ref = "accompanistGlide" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 androidx-appcompat-resources = { module = "androidx.appcompat:appcompat-resources", version.ref = "appcompat" }
 androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
+compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "compiler" }
 compose = { module = "com.github.bumptech.glide:compose", version.ref = "compose" }
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "compiler" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }

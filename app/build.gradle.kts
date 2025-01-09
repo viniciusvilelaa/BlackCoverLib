@@ -69,6 +69,9 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation (libs.androidx.room.runtime)
     implementation (libs.compose)
+    annotationProcessor (libs.compiler)
+    implementation (libs.glide) // Última versão do Glide
+
 
 
 }
