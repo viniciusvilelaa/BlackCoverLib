@@ -1,6 +1,7 @@
 package com.example.tabulizando
 
 import android.content.Context
+import android.provider.ContactsContract.Data
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -23,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -33,6 +35,9 @@ import androidx.navigation.NavController
 
 @Composable
 fun RegisterScreen(navController: NavController, context: Context){
+
+    val context = LocalContext.current
+    val dbHelper = remember { DataBaseHelper(context) }
 
     var title by remember {
         mutableStateOf("")
@@ -87,12 +92,19 @@ fun RegisterScreen(navController: NavController, context: Context){
 
         Spacer(modifier = Modifier.height(20.dp))
 
+        OutlinedTextField(value = description, onValueChange = {description = it}, label = { Text(text = "Description") })
+
+        Spacer(modifier = Modifier.height(20.dp))
+
         OutlinedTextField(value = imgUrl, onValueChange = {imgUrl = it}, label = { Text(text = "Url") })
 
         Spacer(modifier = Modifier.height(20.dp))
 
+
+
+
         Row {
-            Button(onClick = { saveBook(context, navController, title, author, publisher, isbn.toInt(), imgUrl) }, colors = ButtonDefaults.buttonColors(Color.Red)) {
+            Button(onClick = { saveBook(dbHelper, navController, title, author, publisher, isbn.toInt(), description, imgUrl) }, colors = ButtonDefaults.buttonColors(Color.Red)) {
                 Text(text = "Salvar",
                     fontSize = 15.sp)
             }
@@ -108,9 +120,9 @@ fun RegisterScreen(navController: NavController, context: Context){
     }
 }
 
-fun saveBook(context: Context, navController: NavController, title: String, author: String, publisher: String, isbn: Int, url: String){
-    val db = DataBase(context)
-    db.saveBook(isbn, title, author, publisher, url)
+fun saveBook(dbHelper: DataBaseHelper, navController: NavController, title: String, author: String, publisher: String, isbn: Int, description: String, url: String){
+    val book = Book(title, author, publisher, isbn, description, url)
+    dbHelper.saveBook(dbHelper,book)
     backScreen(navController)
 }
 

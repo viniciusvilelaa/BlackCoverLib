@@ -5,46 +5,54 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
-class DataBase(context: Context): SQLiteOpenHelper(context, NOME, null, VERSAO) {
-    companion object{
-        private const val NOME = "booksdb"
-        private const val VERSAO = 1
+class DataBaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
+    companion object {
+        private const val DATABASE_NAME = "books.db"
+        private const val DATABASE_VERSION = 1
+        const val TABLE_NAME = "books"
+        const val COLUMN_TITLE = "title"
+        const val COLUMN_AUTHOR = "author"
+        const val COLUMN_PUBLISHER = "publisher"
+        const val COLUMN_ISBN = "isbn"
+        const val COLUMN_DESCRIPTION = "description"
+        const val COLUMN_IMG_URL = "imgUrl"
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
-        db?.execSQL(
-            """
-            CREATE TABLE produtos (
-            isbn INTEGER PRIMARY KEY,
-            title TEXT,
-            author TEXT,
-            publisher TEXT,
-            urlImg TEXT
-        )
-        """
-        )
+        val createTableQuery = """
+            CREATE TABLE $TABLE_NAME (
+                $COLUMN_ISBN INTEGER PRIMARY KEY,
+                $COLUMN_TITLE TEXT NOT NULL,
+                $COLUMN_AUTHOR TEXT NOT NULL,
+                $COLUMN_PUBLISHER TEXT NOT NULL,
+                $COLUMN_DESCRIPTION TEXT NOT NULL,
+                $COLUMN_IMG_URL TEXT
+            )
+        """.trimIndent()
+        db?.execSQL(createTableQuery)
     }
 
-    override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {
-        TODO("Not yet implemented")
+    override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
+        db?.execSQL("DROP TABLE IF EXISTS $TABLE_NAME")
+        onCreate(db)
     }
 
-    fun saveBook(isbn: Int, title:String, author: String, publisher: String, urlImg: String): Long{
-        val banco = this.writableDatabase
-        val container = ContentValues()
-        container.put("isbn", isbn)
-        container.put("title", title)
-        container.put("author", author)
-        container.put("publisher", publisher)
-        container.put("urlImg", urlImg)
-        val result = banco.insert("booksdb", null, container)
-        banco.close()
-        return result
-
+    fun saveBook(dbHelper: DataBaseHelper, book: Book) {
+        val db = dbHelper.writableDatabase
+        val values = ContentValues().apply {
+            put(COLUMN_ISBN, book.isbn)
+            put(COLUMN_TITLE, book.title)
+            put(COLUMN_AUTHOR, book.author)
+            put(COLUMN_PUBLISHER, book.publisher)
+            put(COLUMN_DESCRIPTION, book.description)
+            put(COLUMN_IMG_URL, book.imgUrl)
+        }
+        db.insert(TABLE_NAME, null, values)
+        db.close()
     }
 
-    fun findByIsbn(isbn: Int): Book{
-        val banco = this.readableDatabase
+    /*fun findByIsbn(isbn: Int): Book{
+        val db = this.readableDatabase
         val cursor = banco.rawQuery("SELECT * FROM database WHERE isbn=$isbn", null)
         val book = Book()
         if(cursor.count > 0){
@@ -58,23 +66,26 @@ class DataBase(context: Context): SQLiteOpenHelper(context, NOME, null, VERSAO) 
             }while (cursor.moveToNext())
         }
         return book
-    }
+    }*/
 
-    fun listAll(): ArrayList<Book>{
-        val banco = this.readableDatabase
-        val cursor = banco.rawQuery("SELECT  * FROM database", null)
-        val array = ArrayList<Book>()
-        if( cursor.count > 0){
-            cursor.moveToFirst()
-            do {
-                var isbn = cursor.getInt(0)
-                var title = cursor.getString(1)
-                var author = cursor.getString(2)
-                var publisher = cursor.getString(3)
-                var imgUrl = cursor.getString(4)
-            }while (cursor.moveToNext())
+    /*fun listAll(dbHelper: DataBaseHelper): List<Book>{
+        val db = dbHelper.writableDatabase
+        val cursor = db.query(TABLE_NAME,null,null,null,null,null,null)
+        val books = mutableListOf<Book>()
+        with(cursor){
+            while (moveToNext()){
+                val title = getString(getColumnIndexOrThrow(COLUMN_TITLE))
+                val author = getString(getColumnIndexOrThrow(COLUMN_AUTHOR))
+                val publisher = getString(getColumnIndexOrThrow(COLUMN_PUBLISHER))
+                val isbn = getInt(getColumnIndexOrThrow(COLUMN_ISBN))
+                val description = getString(getColumnIndexOrThrow(COLUMN_DESCRIPTION))
+                val imgUrl = getString(getColumnIndexOrThrow(COLUMN_IMG_URL))
+
+                books.add(Book(title,author,publisher,isbn, description, imgUrl))
+            }
         }
-        return array
-    }
+        db.close()
+        return books
+    }*/
 
 }

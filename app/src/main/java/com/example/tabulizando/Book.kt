@@ -1,9 +1,10 @@
 package com.example.tabulizando
 
 data class Book(
-    var title: String = "",
-    var author: String = "",
-    var publisher: String = "",
-    var isbn: Int = 0,
-    var imgUrl: String = "",
+    val title: String,
+    val author: String,
+    val publisher: String,
+    val isbn: Int, // Chave primária
+    val description: String,
+    val imgUrl: String
 )
