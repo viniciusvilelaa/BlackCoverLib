@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper
 class DataBaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     companion object {
         private const val DATABASE_NAME = "books.db"
-        private const val DATABASE_VERSION = 1
+        private const val DATABASE_VERSION = 2
         const val TABLE_NAME = "books"
         const val COLUMN_TITLE = "title"
         const val COLUMN_AUTHOR = "author"
@@ -68,7 +68,7 @@ class DataBaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME,
         return book
     }*/
 
-    /*fun listAll(dbHelper: DataBaseHelper): List<Book>{
+    fun listAll(dbHelper: DataBaseHelper): List<Book>{
         val db = dbHelper.writableDatabase
         val cursor = db.query(TABLE_NAME,null,null,null,null,null,null)
         val books = mutableListOf<Book>()
@@ -86,6 +86,6 @@ class DataBaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME,
         }
         db.close()
         return books
-    }*/
+    }
 
 }

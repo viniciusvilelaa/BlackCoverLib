@@ -104,7 +104,7 @@ fun RegisterScreen(navController: NavController, context: Context){
 
 
         Row {
-            Button(onClick = { saveBook(dbHelper, navController, title, author, publisher, isbn.toInt(), description, imgUrl) }, colors = ButtonDefaults.buttonColors(Color.Red)) {
+            Button(onClick = { saveBook(dbHelper, navController, title, author, publisher, isbn.toInt(), description, imgUrl)}, colors = ButtonDefaults.buttonColors(Color.Red)) {
                 Text(text = "Salvar",
                     fontSize = 15.sp)
             }
@@ -128,5 +128,6 @@ fun saveBook(dbHelper: DataBaseHelper, navController: NavController, title: Stri
 
 
 fun backScreen(navController: NavController){
+
     navController.navigate("MenuScreen")
 }
