@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import androidx.compose.foundation.layout.Arrangement
 
 class DataBaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     companion object {
@@ -68,10 +69,10 @@ class DataBaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME,
         return book
     }*/
 
-    fun listAll(dbHelper: DataBaseHelper): List<Book>{
+    fun listAll(dbHelper: DataBaseHelper): ArrayList<Book>{
         val db = dbHelper.writableDatabase
         val cursor = db.query(TABLE_NAME,null,null,null,null,null,null)
-        val books = mutableListOf<Book>()
+        val books = arrayListOf<Book>()
         with(cursor){
             while (moveToNext()){
                 val title = getString(getColumnIndexOrThrow(COLUMN_TITLE))

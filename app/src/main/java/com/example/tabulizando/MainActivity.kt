@@ -2,6 +2,7 @@ package com.example.tabulizando
 
 import android.content.Context
 import android.os.Bundle
+import android.provider.ContactsContract.Data
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -23,9 +24,11 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
         setContent {
             TabulizandoTheme {
                 val navController = rememberNavController()
+                val dbHelper = DataBaseHelper(this)
                 NavHost(navController = navController, startDestination = "LoginScreen"){
                     composable("LoginScreen"){
                         LoginScreen(this@MainActivity, navController)
@@ -35,6 +38,9 @@ class MainActivity : ComponentActivity() {
                     }
                     composable("RegisterScreen"){
                         RegisterScreen(navController, this@MainActivity)
+                    }
+                    composable("ListScreen"){
+                        ListScreen(dbHelper)
                     }
                 }
             }

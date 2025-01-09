@@ -31,7 +31,7 @@ fun MenuScreen(navController: NavController){
             Button(onClick = {navController.navigate("RegisterScreen")}) {
                 Text(text = "Cadastrar livro")
             }
-            Button(onClick = {}) {
+            Button(onClick = {navController.navigate("ListScreen")}) {
                 Text(text = "Listar livros")
             }
         }
