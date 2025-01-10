@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -62,7 +63,17 @@ fun ListScreen(dbHelper: DataBaseHelper, navController: NavController){
     }
 
     Column(modifier = Modifier.fillMaxSize()
-        .padding(WindowInsets.statusBars.asPaddingValues())) {
+        .padding(WindowInsets.statusBars.asPaddingValues()),
+        horizontalAlignment = Alignment.CenterHorizontally) {
+        Text(
+            text = "Sua coleção de livros",
+            fontSize = 20.sp,
+            fontWeight = FontWeight(400),
+            color = Color.Red
+        )
+
+        Spacer(modifier = Modifier.height(20.dp))
+
         LazyColumn(
         ) {
             items(books.value){ book ->
