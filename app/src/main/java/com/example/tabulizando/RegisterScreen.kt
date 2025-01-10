@@ -92,7 +92,9 @@ fun RegisterScreen(navController: NavController, context: Context){
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        OutlinedTextField(value = description, onValueChange = {description = it}, label = { Text(text = "Description") })
+        OutlinedTextField(value = description, onValueChange = {if (it.length <= 100){
+            description = it
+        } }, label = { Text(text = "Description") })
 
         Spacer(modifier = Modifier.height(20.dp))
 

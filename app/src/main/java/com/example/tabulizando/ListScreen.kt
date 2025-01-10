@@ -26,8 +26,10 @@ import androidx.compose.material3.CardElevation
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -44,6 +46,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavController
 import com.bumptech.glide.annotation.GlideModule
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
@@ -85,8 +88,14 @@ fun ListScreen(dbHelper: DataBaseHelper, navController: NavController){
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun BookItem(book: Book){
+    var showDialog by remember { mutableStateOf(false) }
+    var selectedBook by remember { mutableStateOf<Book?>(null) }
+
     Card(modifier = Modifier.fillMaxWidth()
-        .clickable { println("CLICADO") }
+        .clickable {
+            selectedBook = book
+            showDialog = true
+        }
         .padding(16.dp),
         shape = RoundedCornerShape(15),
         elevation = CardDefaults.cardElevation(10.dp)){
@@ -110,6 +119,13 @@ fun BookItem(book: Book){
             }
 
         }
+    }
+
+    if(showDialog){
+        Dialog(onDismissRequest = {showDialog = false}) {
+            CardDetail(book)
+        }
+
     }
 }
 
