@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedTextField
@@ -100,14 +101,15 @@ fun UpdateScreen(navController: NavController){
 
         Row {
             Button(onClick = { updateBook(isbn.toInt(),title, author, publisher, description, imgUrl, dbHelper, context) }, colors = ButtonDefaults.buttonColors(
-                Color.Red)) {
+                Color.Red), shape = RoundedCornerShape(15)) {
                 Text(text = "Salvar",
                     fontSize = 15.sp)
             }
 
             Spacer(modifier = Modifier.width(10.dp))
 
-            Button(onClick = {backScreen(navController)}, colors = ButtonDefaults.buttonColors(Color.Red)) {
+            Button(onClick = {backScreen(navController)}, colors = ButtonDefaults.buttonColors(Color.Red),
+                shape = RoundedCornerShape(15)) {
                 Text(text = "Voltar",
                     fontSize = 15.sp)
             }
