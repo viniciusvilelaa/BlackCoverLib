@@ -79,4 +79,35 @@ class DataBaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME,
         return books
     }
 
+    fun updateBook(isbn: Int, title: String, author: String, publisher: String, description: String, imgUrl: String) : Boolean{
+        val db = this.writableDatabase
+
+        val contentValues = ContentValues().apply {
+            if (title.isNotBlank()){
+                put("title", title)
+            }
+            if (author.isNotBlank()){
+                put("author", title)
+            }
+            if (publisher.isNotBlank()){
+                put("publisher", publisher)
+            }
+            if (description.isNotBlank()){
+                put("description", description)
+            }
+            if (imgUrl.isNotBlank()){
+                put("imgUrl", imgUrl)
+            }
+        }
+
+        val result = db.update("books",
+            contentValues, "isbn = ?",
+            arrayOf(isbn.toString())
+        )
+
+        db.close()
+
+        return result > 0
+    }
+
 }

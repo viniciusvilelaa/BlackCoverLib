@@ -1,7 +1,7 @@
 package com.example.tabulizando
 
 import android.content.Context
-import android.provider.ContactsContract.Data
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,9 +12,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Shapes
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -23,19 +21,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
-
 @Composable
-fun RegisterScreen(navController: NavController){
-
+fun UpdateScreen(navController: NavController){
     val context = LocalContext.current
     val dbHelper = remember { DataBaseHelper(context) }
 
@@ -68,7 +61,7 @@ fun RegisterScreen(navController: NavController){
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally){
         Text(
-            text = "Adicione um livro à coleção",
+            text = "Altere um livro à coleção",
             fontSize = 20.sp,
             fontWeight = FontWeight(400),
             color = Color.Red
@@ -106,7 +99,8 @@ fun RegisterScreen(navController: NavController){
 
 
         Row {
-            Button(onClick = { saveBook(dbHelper, navController, title, author, publisher, isbn.toInt(), description, imgUrl)}, colors = ButtonDefaults.buttonColors(Color.Red)) {
+            Button(onClick = { updateBook(isbn.toInt(),title, author, publisher, description, imgUrl, dbHelper, context) }, colors = ButtonDefaults.buttonColors(
+                Color.Red)) {
                 Text(text = "Salvar",
                     fontSize = 15.sp)
             }
@@ -122,14 +116,10 @@ fun RegisterScreen(navController: NavController){
     }
 }
 
-fun saveBook(dbHelper: DataBaseHelper, navController: NavController, title: String, author: String, publisher: String, isbn: Int, description: String, url: String){
-    val book = Book(title, author, publisher, isbn, description, url)
-    dbHelper.saveBook(dbHelper,book)
-    backScreen(navController)
-}
-
-
-fun backScreen(navController: NavController){
-
-    navController.navigate("MenuScreen")
+fun updateBook(isbn: Int, title: String, author: String, publisher: String, description: String, imgUrl: String, dbHelper: DataBaseHelper, context: Context){
+    return if (dbHelper.updateBook(isbn, title, author, publisher, description, imgUrl)){
+        Toast.makeText(context, "Livro alterado com sucesso!", Toast.LENGTH_LONG).show()
+    } else{
+        Toast.makeText(context, "Livro não encontrado", Toast.LENGTH_LONG).show()
+    }
 }

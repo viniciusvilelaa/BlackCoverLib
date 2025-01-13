@@ -39,7 +39,7 @@ fun MenuScreen(navController: NavController){
             Button(onClick = {navController.navigate("DeleteScreen")}) {
                 Text(text = "Excluir livro")
             }
-            Button(onClick = {}) {
+            Button(onClick = {navController.navigate("UpdateScreen")}) {
                 Text(text = "Atualizar livro")
             }
         }
