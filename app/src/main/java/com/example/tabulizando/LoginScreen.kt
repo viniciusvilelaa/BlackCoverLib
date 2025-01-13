@@ -135,7 +135,3 @@ fun savePrefs(sharedPreferences: SharedPreferences,user: String, password: Strin
     editor.putString("password", password)
     editor.apply()
 }
-
-fun switchScreen(){
-
-}

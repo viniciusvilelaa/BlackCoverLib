@@ -52,22 +52,12 @@ class DataBaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME,
         db.close()
     }
 
-    /*fun findByIsbn(isbn: Int): Book{
-        val db = this.readableDatabase
-        val cursor = banco.rawQuery("SELECT * FROM database WHERE isbn=$isbn", null)
-        val book = Book()
-        if(cursor.count > 0){
-            cursor.moveToFirst()
-            do{
-                book.isbn = cursor.getInt(0)
-                book.title = cursor.getString(1)
-                book.author = cursor.getString(2)
-                book.publisher = cursor.getString(3)
-                book.imgUrl = cursor.getString(4)
-            }while (cursor.moveToNext())
-        }
-        return book
-    }*/
+    fun deleteByIsbn(isbn: Int): Boolean{
+        val db = this.writableDatabase
+        val result = db.delete("books", "isbn = ?", arrayOf(isbn.toString()))
+        db.close()
+        return result > 0
+    }
 
     fun listAll(dbHelper: DataBaseHelper): ArrayList<Book>{
         val db = dbHelper.writableDatabase

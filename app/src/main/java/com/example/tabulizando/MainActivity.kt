@@ -42,6 +42,9 @@ class MainActivity : ComponentActivity() {
                     composable("ListScreen"){
                         ListScreen(dbHelper, navController)
                     }
+                    composable("DeleteScreen"){
+                        DeleteScreen(dbHelper, navController, this@MainActivity)
+                    }
                 }
             }
         }
