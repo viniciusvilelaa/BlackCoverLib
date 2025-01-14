@@ -30,7 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
-
+//Função da tela de Delete
 @Composable
 fun DeleteScreen(dbHelper: DataBaseHelper,navController: NavController, context: Context){
 
@@ -75,6 +75,7 @@ fun DeleteScreen(dbHelper: DataBaseHelper,navController: NavController, context:
 
 }
 
+//Chamada da função deleteByIsbn
 fun deleteBook(isbn: Int,context: Context, dbHelper: DataBaseHelper, navController: NavController){
     return if(dbHelper.deleteByIsbn(isbn)){
         Toast.makeText(context, "Livro excluído com sucesso", Toast.LENGTH_LONG).show()

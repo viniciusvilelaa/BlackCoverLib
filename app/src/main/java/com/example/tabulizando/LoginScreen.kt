@@ -37,16 +37,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 
-
+//Classe da tela
 @Composable
 fun LoginScreen(context: Context, navController: NavController){
 
-
-
     val sharedPreferences = context.getSharedPreferences("login_prefs", Context.MODE_PRIVATE)
-
-
-
 
     var user by remember {
         mutableStateOf("")
@@ -105,16 +100,8 @@ fun LoginScreen(context: Context, navController: NavController){
             Text(text = "Redefinir senha", color = Color.Red)
         }
 
-
-
-
     }
-
-
-
-
 }
-
 
 
 fun login(context: Context,sharedPreferences: SharedPreferences, user: String, password: String, navController: NavController){
@@ -135,3 +122,4 @@ fun savePrefs(sharedPreferences: SharedPreferences,user: String, password: Strin
     editor.putString("password", password)
     editor.apply()
 }
+

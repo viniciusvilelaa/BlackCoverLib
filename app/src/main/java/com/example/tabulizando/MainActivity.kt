@@ -17,8 +17,11 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             TabulizandoTheme {
+
+                //Utilização do navigation para gerenciamento das telas
                 val navController = rememberNavController()
                 val dbHelper = DataBaseHelper(this)
+
                 NavHost(navController = navController, startDestination = "LoginScreen"){
                     composable("LoginScreen"){
                         LoginScreen(this@MainActivity, navController)

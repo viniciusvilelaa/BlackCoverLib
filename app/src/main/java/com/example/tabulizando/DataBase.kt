@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 
+//Classe utilizada para gerencimaneto do Banco de Dados SQLite
 class DataBaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     companion object {
         private const val DATABASE_NAME = "books.db"
@@ -41,7 +42,7 @@ class DataBaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME,
         onCreate(db)
     }
 
-
+    //Metodo para salvar livro na DB
     fun saveBook(dbHelper: DataBaseHelper, book: Book) {
         val db = dbHelper.writableDatabase
         val values = ContentValues().apply {
@@ -56,6 +57,7 @@ class DataBaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME,
         db.close()
     }
 
+    //Metodo para deletar livro na DB
     fun deleteByIsbn(isbn: Int): Boolean{
         val db = this.writableDatabase
         val result = db.delete("books", "isbn = ?", arrayOf(isbn.toString()))
@@ -63,6 +65,7 @@ class DataBaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME,
         return result > 0
     }
 
+    //Metodo para listar todos os livros presentes na DB
     fun listAll(dbHelper: DataBaseHelper): ArrayList<Book>{
         val db = dbHelper.writableDatabase
         val cursor = db.query(TABLE_NAME,null,null,null,null,null,null)
@@ -83,6 +86,7 @@ class DataBaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME,
         return books
     }
 
+    //Metodo para atualizar alguma informação de um livro, utilizando o ISBN como identificador
     fun updateBook(isbn: Int, title: String, author: String, publisher: String, description: String, imgUrl: String) : Boolean{
         val db = this.writableDatabase
 

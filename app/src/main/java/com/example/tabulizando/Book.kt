@@ -1,5 +1,6 @@
 package com.example.tabulizando
 
+//Classe base para o objeto Livro
 data class Book(
     val title: String,
     val author: String,

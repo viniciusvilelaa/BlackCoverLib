@@ -38,13 +38,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
-
+//Função da tela de registro
 @Composable
 fun RegisterScreen(navController: NavController, context: Context){
 
     val context = LocalContext.current
     val dbHelper = remember { DataBaseHelper(context) }
 
+    //Capturando estado das variaveis
     var title by remember {
         mutableStateOf("")
     }
@@ -131,7 +132,7 @@ fun RegisterScreen(navController: NavController, context: Context){
     }
 }
 
-
+//Função com chamada do saveBook do DB para salvar o livro
 fun saveBook(dbHelper: DataBaseHelper, navController: NavController, context: Context ,title: String, author: String, publisher: String, isbn: Int, description: String, url: String){
 
         val book = Book(title, author, publisher, isbn, description, url)
@@ -142,7 +143,7 @@ fun saveBook(dbHelper: DataBaseHelper, navController: NavController, context: Co
 
 }
 
-
+//Função para voltar para a tela de menu
 fun backScreen(navController: NavController){
 
     navController.navigate("MenuScreen")

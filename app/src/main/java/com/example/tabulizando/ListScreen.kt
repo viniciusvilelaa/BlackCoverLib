@@ -53,7 +53,7 @@ import com.bumptech.glide.annotation.GlideModule
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 
-
+//Funçao da tela de listagem
 @Composable
 fun ListScreen(dbHelper: DataBaseHelper, navController: NavController){
     val books = remember { mutableStateOf(emptyList<Book>()) }
@@ -95,7 +95,7 @@ fun ListScreen(dbHelper: DataBaseHelper, navController: NavController){
 }
 
 
-
+//Função composable para configurar como os livros vão ser apresentados na listagem
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun BookItem(book: Book){

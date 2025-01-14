@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
-@Preview
+//Função da tela de menu
 @Composable
 fun MenuScreen(navController: NavController){
     Column(modifier = Modifier.fillMaxSize(),verticalArrangement = Arrangement.Center,

@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
+//Função da tela de alteração
 @Composable
 fun UpdateScreen(navController: NavController){
     val context = LocalContext.current
