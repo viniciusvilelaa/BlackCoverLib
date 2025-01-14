@@ -2,6 +2,7 @@ package com.example.tabulizando
 
 import android.content.Context
 import android.provider.ContactsContract.Data
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,8 +11,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Shapes
 import androidx.compose.material3.Text
@@ -27,6 +31,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -35,7 +40,7 @@ import androidx.navigation.NavController
 
 
 @Composable
-fun RegisterScreen(navController: NavController){
+fun RegisterScreen(navController: NavController, context: Context){
 
     val context = LocalContext.current
     val dbHelper = remember { DataBaseHelper(context) }
@@ -89,7 +94,7 @@ fun RegisterScreen(navController: NavController){
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        OutlinedTextField(value = isbn, onValueChange = {isbn = it}, label = { Text(text = "Isbn") })
+        OutlinedTextField(value = isbn, onValueChange = {isbn = it}, label = { Text(text = "Isbn") }, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number))
 
         Spacer(modifier = Modifier.height(20.dp))
 
@@ -107,7 +112,7 @@ fun RegisterScreen(navController: NavController){
 
 
         Row {
-            Button(onClick = { saveBook(dbHelper, navController, title, author, publisher, isbn.toInt(), description, imgUrl)}, colors = ButtonDefaults.buttonColors(Color.Red),
+            Button(onClick = { saveBook(dbHelper, navController,context ,title, author, publisher, isbn.toInt(), description, imgUrl)}, colors = ButtonDefaults.buttonColors(Color.Red),
                 shape = RoundedCornerShape(15)
             ) {
                 Text(text = "Salvar",
@@ -126,10 +131,15 @@ fun RegisterScreen(navController: NavController){
     }
 }
 
-fun saveBook(dbHelper: DataBaseHelper, navController: NavController, title: String, author: String, publisher: String, isbn: Int, description: String, url: String){
-    val book = Book(title, author, publisher, isbn, description, url)
-    dbHelper.saveBook(dbHelper,book)
-    backScreen(navController)
+
+fun saveBook(dbHelper: DataBaseHelper, navController: NavController, context: Context ,title: String, author: String, publisher: String, isbn: Int, description: String, url: String){
+
+        val book = Book(title, author, publisher, isbn, description, url)
+        dbHelper.saveBook(dbHelper,book)
+        Toast.makeText(context, "Livro salvo", Toast.LENGTH_LONG).show()
+        backScreen(navController)
+
+
 }
 
 

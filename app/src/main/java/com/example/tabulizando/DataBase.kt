@@ -4,7 +4,10 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 
 class DataBaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     companion object {
@@ -37,6 +40,7 @@ class DataBaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME,
         db?.execSQL("DROP TABLE IF EXISTS $TABLE_NAME")
         onCreate(db)
     }
+
 
     fun saveBook(dbHelper: DataBaseHelper, book: Book) {
         val db = dbHelper.writableDatabase

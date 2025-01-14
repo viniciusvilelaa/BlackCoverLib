@@ -95,7 +95,7 @@ fun ListScreen(dbHelper: DataBaseHelper, navController: NavController){
 }
 
 
-@Preview
+
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun BookItem(book: Book){

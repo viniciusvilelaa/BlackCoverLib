@@ -55,7 +55,7 @@ fun DeleteScreen(dbHelper: DataBaseHelper,navController: NavController, context:
         Spacer(modifier = Modifier.height(20.dp))
 
         Row {
-            Button(onClick = { deleteBook(isbn.toInt(), context, dbHelper) }, colors = ButtonDefaults.buttonColors(Color.Red),
+            Button(onClick = { deleteBook(isbn.toInt(), context, dbHelper,navController) }, colors = ButtonDefaults.buttonColors(Color.Red),
                 shape = RoundedCornerShape(15)) {
                 Text(text = "Excluir",
                     fontSize = 15.sp)
@@ -75,9 +75,10 @@ fun DeleteScreen(dbHelper: DataBaseHelper,navController: NavController, context:
 
 }
 
-fun deleteBook(isbn: Int,context: Context, dbHelper: DataBaseHelper){
+fun deleteBook(isbn: Int,context: Context, dbHelper: DataBaseHelper, navController: NavController){
     return if(dbHelper.deleteByIsbn(isbn)){
         Toast.makeText(context, "Livro excluído com sucesso", Toast.LENGTH_LONG).show()
+        backScreen(navController)
     }else{
         Toast.makeText(context, "Livro não encontrado", Toast.LENGTH_LONG).show()
     }
